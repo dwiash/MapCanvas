@@ -1,10 +1,12 @@
 package com.MajuJaya.Graphic
 {
+
 	import mx.flash.UIMovieClip;
 	import flash.display.MovieClip;
 
 	public dynamic class Edge extends UIMovieClip
 	{
+	
 		public var weight:int;
 		public var coordinate:String;
 		public var selected:Boolean = false;
@@ -12,6 +14,7 @@ package com.MajuJaya.Graphic
 		
 		public function Edge(edgeName:String, edgeCoordinate:String, edgeWeight:int)
 		{
+		
 			super();
 			
 			this.name = edgeName;

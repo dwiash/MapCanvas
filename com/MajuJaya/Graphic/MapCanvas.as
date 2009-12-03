@@ -46,31 +46,48 @@
 			EdgeHolder.addEventListener(MouseEvent.CLICK, EdgeClicked);
 			
 			EdgeHighlight([]);
+			
 		}
 		
 		public function populateEdges():void
 		{
+		
 			for (var i:int = 0; i < Edges.length; i++) {
+			
 				var edgeObj:Edge = new Edge(Edges[i][1], Edges[i][3], Edges[i][2]);
+				
 				EdgeHolder.addChild(edgeObj);
+				
  			}
+ 			
 		}
+		
 		
 		public function populateNodes():void
 		{
+		
 			for(var i:uint = 0; i<Nodes.length; i++)
 			{
+			
 				var nodeObj:Node = new Node(Nodes[i][1], Nodes[i][2], Nodes[i][3], 1);
+				
 				NodeHolder.addChild(nodeObj);
+				
 			}
+			
 		}
+		
 		
 		private function EdgeClicked(e:MouseEvent):void
 		{
+		
 			var mousePosition:Point = new Point(EdgeHolder.mouseX, EdgeHolder.mouseY);
 			var obj:Object = EdgeHolder.getObjectsUnderPoint(mousePosition)[0];
+			
 			Alert.show(obj.name);
+			
 		}
+		
 		
 		private function NodeClicked(e:MouseEvent):void
 		{
@@ -81,78 +98,117 @@
 			var objIndex:int = NodeHolder.getChildIndex(displayObj);
 			
 			if(NodeDst != -1){
-			    var prevDst:Object = NodeHolder.getChildAt(NodeDst);
-    			var displayPrevDst:DisplayObject = NodeHolder.getChildByName(prevDst.name);
+			
+	      var prevDst:Object = NodeHolder.getChildAt(NodeDst);
+			  var displayPrevDst:DisplayObject = NodeHolder.getChildByName(prevDst.name);
+    			
 			}
 			
 			if(objIndex == NodeSrc){
-				if(NodeDst != -1){
-				    PointerSrc.x = displayPrevDst.x;
-				    PointerSrc.y = displayPrevDst.y;
+			
+			  if(NodeDst != -1){
+			  
+			    PointerSrc.x = displayPrevDst.x;
+			    PointerSrc.y = displayPrevDst.y;
+			    
 				}else{
-				    PointerSrc.x = -50;
-				    PointerSrc.y = -50;
+				
+			    PointerSrc.x = -50;
+			    PointerSrc.y = -50;
+			    
 				}
-		        NodeSrc = NodeDst;
-		        NodeDst = -1;
+				
+        NodeSrc = NodeDst;
+        NodeDst = -1;
 				obj.selected = false;
 				PointerDst.x = -50;
 				PointerDst.y = -50;
+				
 			}else if(objIndex == NodeDst){
-		        NodeDst = -1;
+			
+        NodeDst = -1;
 				obj.selected = false;
 				PointerDst.x = -50;
 				PointerDst.y = -50;
+				
 			}else{
-			    if(NodeDst != -1 && NodeDst != -1){
-	                prevDst.selected = false;
-	                NodeDst = objIndex;
-				    PointerDst.x = displayObj.x;
-				    PointerDst.y = displayObj.y;
-			    }else if(NodeSrc == -1){
-			        NodeSrc = objIndex;
-				    PointerSrc.x = displayObj.x;
-				    PointerSrc.y = displayObj.y;
-			    }else{
-			        NodeDst = objIndex;
-				    PointerDst.x = displayObj.x;
-				    PointerDst.y = displayObj.y;
-			    }
+			
+		    if(NodeDst != -1 && NodeDst != -1){
+		    
+          prevDst.selected = false;
+          NodeDst = objIndex;
+			    PointerDst.x = displayObj.x;
+			    PointerDst.y = displayObj.y;
+			    
+		    }else if(NodeSrc == -1){
+		    
+	        NodeSrc = objIndex;
+			    PointerSrc.x = displayObj.x;
+			    PointerSrc.y = displayObj.y;
+			    
+		    }else{
+		    
+	        NodeDst = objIndex;
+			    PointerDst.x = displayObj.x;
+			    PointerDst.y = displayObj.y;
+			    
+		    }
+		    
 				obj.selected = true;
+				
 			}
 			
 			if(NodeDst != -1 && NodeDst != -1){
-			    searchShortestPath(NodeSrc, NodeDst);
+			
+	      searchShortestPath(NodeSrc, NodeDst);
+			    
 			}
 			
 		}
 		
+		
 		public function searchShortestPath(NodeSource:int, NodeDestination:int):void
 		{
-		    EdgeHighlight([0,1,2,3,5,7]);
+		
+	    EdgeHighlight([0,1,2,3,5,7]);
+		    
 		}
 		
 		private function EdgeHighlight(EdgeIndex:Array):void
 		{
+		
 		    for (var i:int = 0; i < Edges.length; i++) {
+		    
 		        EdgeHolder.getChildAt(i).alpha = 0;
+		        
 		        for (var j:int = 0; j < EdgeIndex.length; j++) {
+		        
 		            if(i==EdgeIndex[j]){
+		            
 		                EdgeHolder.getChildAt(EdgeIndex[j]).alpha = 1;
+		                
 		            }
+		            
 		        }
  			}
+ 			
 		}
 
 		
 		private function ResetEdgeHighlight():void
 		{
-		    for (var i:int = 0; i < Edges.length; i++) {
-		        EdgeHolder.getChildAt(i).alpha = 1;
- 			}
+		
+      for (var i:int = 0; i < Edges.length; i++) {
+      
+        EdgeHolder.getChildAt(i).alpha = 1;
+        
+      }
+      
 		}
 		
+		
 	}
+	
 	
 }
 
